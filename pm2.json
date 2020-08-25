@@ -1,0 +1,11 @@
+{
+  "apps": [{
+    "name": "realtime-canvas",
+    "script": "index.js",
+    "next_gen_js": true,
+    "env": {
+      "PORT": 3000,
+      "production": true
+    }
+  }]
+}

@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <title>realtime canvas</title>
+
+    <link ref="stylesheet" href="./css/main.css"/>
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./js/socket.io.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var canvas = document.getElementById('draw');
+        var context = canvas.getContext('2d');
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        var socket = io.connect('http://192.168.0.17:3000');
+        var mouse = {
+          click: false,
+          move: false,
+          pos: {x: 0, y: 0},
+          pos_prev: false
+        };
+
+        canvas.width = width;
+        canvas.height = height;
+
+        canvas.onmousedown = function (e) { mouse.click = true };
+        canvas.onmouseup = function (e) { mouse.click = false };
+
+      //  context.clearRect(0, 0, 300, 20);
+
+        canvas.onmousemove = function (e) {
+
+      //     var rect = this.getBoundingClientRect(),
+      // x = e.clientX - rect.left,
+      // y = e.clientY - rect.top;
+
+          mouse.pos.x = (e.clientX / width);
+          mouse.pos.y = (e.clientY / height);
+          mouse.move = true;
+        };
+
+
+        socket.on('draw', function (data) {
+          
+         var line = data.line;
+         console.log(data);
+          context.beginPath();
+          context.moveTo(line[0].x * width, line[0].y * height);
+          context.lineTo(line[1].x * width, line[1].y * height);
+          context.stroke(); 
+          
+        });
+
+
+        function loop () {
+          if (mouse.click && mouse.move && mouse.pos_prev) {
+            socket.emit('draw', { line: [ mouse.pos, mouse.pos_prev ] });
+            mouse.move = false;
+          }
+          mouse.pos_prev = { x: mouse.pos.x, y:mouse.pos.y};
+          setTimeout(loop, 25); 
+        }
+
+        loop();
+        document.getElementById("draw").style.cursor = "pointer";
+      });
+
+
+    </script>
+  </head>
+  <body>
+    <canvas id="draw"></canvas>
+  </body>
+</html>
