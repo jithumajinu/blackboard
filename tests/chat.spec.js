@@ -1,5 +1,7 @@
-import io from 'socket.io-client';
-import chai from 'chai';
+//import io from 'socket.io-client';
+//import chai from 'chai';
+var io = require("socket.io-client");
+var chai = require("chai");
 
 const assert = chai.assert;
 const expect = chai.expect;

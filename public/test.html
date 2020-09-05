@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <title>test</title>
+
+<style id="compiled-css" type="text/css">
+ .body{
+    background: #eeeeee none repeat scroll 0 0;
+    user-select: none;
+ }
+.paper {
+    background: #ffffff none repeat scroll 0 0;
+    border: 1px solid #d5d5d5;
+  
+    border-radius: 5px;
+    box-shadow: 0 0 5px #7a7a7a;
+    margin: 10px 10px 10px 140px;
+
+
+    position: fixed;
+    width: 100%;
+    height: 100%;
+ 
+    
+}
+#draw{
+
+   cursor:pointer;
+   width:100%;
+   height:100%;
+   border: 1px solid #000;
+}
+</style>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+  </head>
+  <body>
+ <div class="paper"> 
+    <input type="text"  id="myText"></input>
+
+    <button onclick="pushMsg()">send</button> 
+    <div id="draw"></div>
+  </div>
+
+  <script type="text/javascript">
+    
+      var socket = io.connect('http://localhost:3000');
+       
+      socket.on('draw', function (data) {
+          document.getElementById("draw").innerHTML+='</br>'+data;
+      });
+
+      function pushMsg () {
+         var val = document.getElementById("myText").value;
+        socket.emit('draw',val);
+      }
+  </script>
+   
+  </body>
+</html>

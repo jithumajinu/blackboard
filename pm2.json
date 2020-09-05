@@ -4,7 +4,7 @@
     "script": "index.js",
     "next_gen_js": true,
     "env": {
-      "PORT": 80,
+      "PORT": 3000,
       "production": true
     }
   }]
