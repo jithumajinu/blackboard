@@ -1,4 +1,5 @@
-import socketIO from 'socket.io';
+//import socketIO from 'socket.io';
+var socketIO = require("socket.io");
 
 const PORT = process.env.PORT;
 const io = socketIO(PORT, {

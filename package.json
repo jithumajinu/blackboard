@@ -1,11 +1,11 @@
 {
-  "name": "realtime-canvas",
+  "name": "BLACKBOARD",
   "version": "1.0.0",
   "description": "simple realtime HTML5 canvas",
   "main": "server.js",
   "scripts": {
-    "test": "cross-env PORT=3000 mocha ./tests --recursive --compilers js:babel-core/register --require babel-polyfill",
-    "start": "cross-env PORT=3000 babel-node server.js"
+    "test": "cross-env PORT=80 mocha ./tests --recursive --compilers js:babel-core/register --require babel-polyfill",
+    "start": "cross-env PORT=80 babel-node server.js"
   },
   "repository": {
     "type": "git",
