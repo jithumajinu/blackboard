@@ -2,7 +2,11 @@
 
 (function() {
 
-  var socket = io.connect('http://192.168.0.17:3000');
+//  var socket = io.connect('http://192.168.0.17:3000');
+
+var socket = io.connect('wss://socketio-whiteboard-zmx4.herokuapp.com');
+
+  // wss://socketio-whiteboard-zmx4.herokuapp.com/socket.io/?EIO=3&transport=websocket&sid=fxTgFdaMCd-RbKypAAGz
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
   var context = canvas.getContext('2d');
@@ -24,17 +28,23 @@
   canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
 
   for (var i = 0; i < colors.length; i++){
-    alert(1);
+  //  alert(1);
     colors[i].addEventListener('click', onColorUpdate, false);
   }
 
-  //socket.on('draw', onDrawingEvent);
-  socket.on('draw', function (data) {
-    console.log("on");
+socket.on('drawing', onDrawingEvent);
+  // socket.on('draw', function (data) {
+  //   console.log("on");
 
-   });
+  //  });
 
-  window.addEventListener('resize', onResize, false);
+  window.addEventListener('resize', onResizeTest, false);
+
+  function onResizeTest() {
+    console.log("resize");
+  }
+
+
   onResize();
 
 
@@ -56,7 +66,7 @@
 
     console.log("emit1");
 
-    socket.emit('draw', {
+    socket.emit('drawing', {
       x0: x0 / w,
       y0: y0 / h,
       x1: x1 / w,
@@ -87,6 +97,7 @@
 
   function onColorUpdate(e){
     current.color = e.target.className.split(' ')[1];
+    onResize();
   }
 
   // limit the number of events per second
