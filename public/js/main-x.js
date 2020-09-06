@@ -24,16 +24,22 @@
   canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
 
   for (var i = 0; i < colors.length; i++){
+    alert(1);
     colors[i].addEventListener('click', onColorUpdate, false);
   }
 
-  socket.on('draw', onDrawingEvent);
+  //socket.on('draw', onDrawingEvent);
+  socket.on('draw', function (data) {
+    console.log("on");
+
+   });
 
   window.addEventListener('resize', onResize, false);
   onResize();
 
 
   function drawLine(x0, y0, x1, y1, color, emit){
+    console.log("emit0");
     context.beginPath();
     context.moveTo(x0, y0);
     context.lineTo(x1, y1);
@@ -42,9 +48,13 @@
     context.stroke();
     context.closePath();
 
+    console.log("emit0");
+
     if (!emit) { return; }
     var w = canvas.width;
     var h = canvas.height;
+
+    console.log("emit1");
 
     socket.emit('draw', {
       x0: x0 / w,
@@ -53,6 +63,7 @@
       y1: y1 / h,
       color: color
     });
+    console.log("emit2");
   }
 
   function onMouseDown(e){
@@ -92,6 +103,7 @@
   }
 
   function onDrawingEvent(data){
+    console.log(1);
     var w = canvas.width;
     var h = canvas.height;
     drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);

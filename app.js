@@ -8,6 +8,5 @@ var server = http.createServer(function(req, res) {
 });
 server.listen();
 */
-require('babel-register');
 require('./server.js');
 

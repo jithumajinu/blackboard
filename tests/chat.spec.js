@@ -1,5 +1,3 @@
-//import io from 'socket.io-client';
-//import chai from 'chai';
 var io = require("socket.io-client");
 var chai = require("chai");
 
@@ -7,7 +5,7 @@ const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
 const PORT = process.env.PORT;
-const socketURL = `http://127.0.0.1:${PORT}`;
+const socketURL = `http://localhost:${PORT}`;
 const options = {
   trasports: ['websocket'],
   'force new connection': true
