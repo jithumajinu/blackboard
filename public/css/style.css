@@ -43,7 +43,7 @@ html, body {
 
 .colors {
   color: #000;
- /* position: fixed; */
+  position: fixed;  
 }
 
 .color {
