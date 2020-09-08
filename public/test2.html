@@ -3,23 +3,59 @@
 <head>
   <title>Socket.IO whiteboardx</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Asap|Gudea:400,400italic,700">
+	<link rel="stylesheet" type="text/css" href="http://demos.inspirationalpixels.com/assets-2/css/main.css?753765">
+
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://demos.inspirationalpixels.com/responsive-menu/menu.js?1234"></script>
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+
 
 <div class="paper"> 
 
 
   <canvas class="whiteboard" ></canvas>
-
+<!--
   <div class="colors">
     <div class="color black"></div>
     <div class="color red"></div>
     <div class="color green"></div>
     <div class="color blue"></div>
     <div class="color yellow"></div>
+    <div class="color clear"></div>
   </div>
+-->  
+<div class="wrap">
+  <nav class="menu">
+    <ul class="active">
+      <li><a  class="color green" href="#"></a>    </li>
+      <li><a  class="color black" href="#"></a></li>
+      <li><a  class="color red" href="#"></a></li>
+      <li><a  class="color yellow" href="#"></a></li>
+      <li><a  class="color clear" href="#"></a></li>
+    </ul>
+
+    <a class="toggle-nav" href="#">&#9776;</a>
+
+    <form class="search-form">
+      <input type="text">
+      <button>Search</button>
+    </form>
+  </nav>
+</div><!--end .wrap-->
+
+
 </div>
+
+
+
   <script src="https://socketio-whiteboard-zmx4.herokuapp.com/socket.io/socket.io.js"></script>
   <script src="js/main-x.js"></script>
 </body>

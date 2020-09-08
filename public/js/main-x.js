@@ -66,15 +66,13 @@ socket.on('drawing', onDrawingEvent);
 
     console.log("emit1");
 
-    socket.emit('drawing', {
-      x0: x0 / w,
-      y0: y0 / h,
-      x1: x1 / w,
-      y1: y1 / h,
-      color: color
-    });
+    socket.emit('drawing', { line: {x0: x0 / w,y0: y0 / h,x1: x1 / w,y1: y1 / h,color: color} });
+
+    //socket.emit('drawing', {x0: x0 / w,y0: y0 / h,x1: x1 / w,y1: y1 / h,color: color});
+    
     console.log("emit2");
   }
+
 
   function onMouseDown(e){
     drawing = true;
@@ -96,8 +94,14 @@ socket.on('drawing', onDrawingEvent);
   }
 
   function onColorUpdate(e){
-    current.color = e.target.className.split(' ')[1];
-    onResize();
+    console.log(current.color)
+    if(e.target.className.split(' ')[1] == "clear"){     
+     socket.emit('drawing', { action: "clear" });
+     onResize();
+    }else{
+      current.color = e.target.className.split(' ')[1];
+    }
+    
   }
 
   // limit the number of events per second
@@ -113,11 +117,25 @@ socket.on('drawing', onDrawingEvent);
     };
   }
 
-  function onDrawingEvent(data){
+  function onDrawingEvent(dataX){
+    var data = null;
+    if (dataX.action) {
+      
+      onResize();
+     // context.clearRect(0, 0, width, height);
+    }else if(dataX.line){
+      data =  dataX.line;
     console.log(1);
     var w = canvas.width;
     var h = canvas.height;
     drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
+
+    }
+
+    else {
+      
+
+    }
   }
 
   // make the canvas fill its parent
